@@ -1,0 +1,30 @@
+package com.turkcell.pair6.customerservice.entities;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Table(name = "addresses")
+@Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Address {
+    @Column(name = "id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(name = "city")
+    private String city;
+
+    @Column(name = "street")
+    private String street;
+
+    @Column(name = "housenumber")
+    private String houseNumber;
+
+    @Column(name = "description")
+    private String description;
+}
