@@ -19,22 +19,28 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @Column(name = "firstname")
     private String firstName;
+
     @Column(name = "middlename")
     private String middleName;
+
     @Column(name = "lastname")
     private String lastName;
+
     @Column(name = "gender")
     private String gender;
+
     @Column(name = "mothername")
     private String motherName;
+
     @Column(name = "fathername")
     private String fatherName;
+
     @Column(name = "nationalityid")
     private String nationalityId;
+
     @Column(name = "birthdate")
     private Date birthDate;
-
-
 }
