@@ -19,12 +19,16 @@ public class Contact {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "homephone")
+    @Column(name = "home_phone")
     private String homePhone;
 
-    @Column(name = "mobilephone")
+    @Column(name = "mobile_phone")
     private String mobilePhone;
 
     @Column(name = "fax")
     private String fax;
+
+    @OneToOne()
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 }

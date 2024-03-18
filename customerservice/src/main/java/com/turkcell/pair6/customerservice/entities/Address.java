@@ -22,9 +22,13 @@ public class Address {
     @Column(name = "street")
     private String street;
 
-    @Column(name = "housenumber")
+    @Column(name = "house_number")
     private String houseNumber;
 
     @Column(name = "description")
     private String description;
+
+    @ManyToOne()
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 }
