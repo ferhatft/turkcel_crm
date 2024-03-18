@@ -1,6 +1,7 @@
 package com.turkcell.pair6.customerservice.services.abstracts;
 
 import com.turkcell.pair6.customerservice.entities.Customer;
+import com.turkcell.pair6.customerservice.services.dtos.requests.AddCustomerRequest;
 import com.turkcell.pair6.customerservice.services.dtos.requests.SearchCustomerRequest;
 import com.turkcell.pair6.customerservice.services.dtos.responses.SearchCustomerResponse;
 
@@ -10,4 +11,6 @@ public interface CustomerService {
     List<Customer> getAll();
 
     List<SearchCustomerResponse> search(SearchCustomerRequest request);
+
+    void add(AddCustomerRequest request);
 }

@@ -1,6 +1,7 @@
 package com.turkcell.pair6.customerservice.controllers;
 
 import com.turkcell.pair6.customerservice.entities.Customer;
+import com.turkcell.pair6.customerservice.services.dtos.requests.AddCustomerRequest;
 import com.turkcell.pair6.customerservice.services.dtos.requests.SearchCustomerRequest;
 import com.turkcell.pair6.customerservice.services.dtos.responses.SearchCustomerResponse;
 import lombok.AllArgsConstructor;
@@ -21,9 +22,15 @@ public class CustomersController {
         return customerService.getAll();
     }
 
-    @PostMapping
+    @PostMapping("search")
     public List<SearchCustomerResponse> search(@RequestBody SearchCustomerRequest request){
         return customerService.search(request);
+    }
+
+    @PostMapping
+    public void add(@RequestBody AddCustomerRequest request)
+    {
+        customerService.add(request);
     }
 
 }
