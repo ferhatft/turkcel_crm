@@ -22,6 +22,10 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<SearchCustomerResponse> search(SearchCustomerRequest request) {
+        if (customerRepository.search(request).isEmpty()){
+            throw new RuntimeException("No customer found! Would you like to create the customer?");
+        }
+
         return customerRepository.search(request);
     }
 
