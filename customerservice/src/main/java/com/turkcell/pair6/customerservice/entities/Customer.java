@@ -21,6 +21,9 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(name="customer_no")
+    private String customerNo;
+
     @Column(name = "first_name")
     private String firstName;
 
@@ -40,7 +43,7 @@ public class Customer {
     private String fatherName;
 
     @Column(name = "nationality_id")
-    private String nationalityId;
+    private int nationalityId;
 
     @Column(name = "birth_date")
     private Date birthDate;

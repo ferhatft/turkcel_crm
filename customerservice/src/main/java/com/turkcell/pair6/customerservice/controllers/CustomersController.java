@@ -1,10 +1,10 @@
 package com.turkcell.pair6.customerservice.controllers;
 
 import com.turkcell.pair6.customerservice.entities.Customer;
+import com.turkcell.pair6.customerservice.services.dtos.requests.SearchCustomerRequest;
+import com.turkcell.pair6.customerservice.services.dtos.responses.SearchCustomerResponse;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.turkcell.pair6.customerservice.services.abstracts.CustomerService;
 
 import java.util.List;
@@ -19,6 +19,11 @@ public class CustomersController {
     @GetMapping
     public List<Customer> getAll() {
         return customerService.getAll();
+    }
+
+    @PostMapping
+    public List<SearchCustomerResponse> search(@RequestBody SearchCustomerRequest request){
+        return customerService.search(request);
     }
 
 }
