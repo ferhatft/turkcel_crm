@@ -2,6 +2,7 @@ package com.turkcell.pair6.customerservice.controllers;
 
 import com.turkcell.pair6.customerservice.entities.Customer;
 import com.turkcell.pair6.customerservice.services.dtos.requests.AddCustomerRequest;
+import com.turkcell.pair6.customerservice.services.dtos.requests.AddDemographicRequest;
 import com.turkcell.pair6.customerservice.services.dtos.requests.SearchCustomerRequest;
 import com.turkcell.pair6.customerservice.services.dtos.responses.SearchCustomerResponse;
 import lombok.AllArgsConstructor;
@@ -29,6 +30,12 @@ public class CustomersController {
 
     @PostMapping
     public void add(@RequestBody AddCustomerRequest request)
+    {
+        customerService.add(request);
+    }
+
+    @PostMapping("demographic")
+    public void add(@RequestBody AddDemographicRequest request)
     {
         customerService.add(request);
     }

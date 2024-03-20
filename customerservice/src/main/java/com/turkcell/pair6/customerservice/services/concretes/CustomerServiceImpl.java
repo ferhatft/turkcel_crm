@@ -5,6 +5,7 @@ import com.turkcell.pair6.customerservice.core.exception.types.BusinessException
 import com.turkcell.pair6.customerservice.entities.Customer;
 import com.turkcell.pair6.customerservice.repositories.CustomerRepository;
 import com.turkcell.pair6.customerservice.services.dtos.requests.AddCustomerRequest;
+import com.turkcell.pair6.customerservice.services.dtos.requests.AddDemographicRequest;
 import com.turkcell.pair6.customerservice.services.dtos.requests.SearchCustomerRequest;
 import com.turkcell.pair6.customerservice.services.dtos.responses.SearchCustomerResponse;
 import com.turkcell.pair6.customerservice.services.mappers.CustomerMapper;
@@ -52,7 +53,12 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void add(AddCustomerRequest request) {
         Customer customer = CustomerMapper.INSTANCE.customerFromAddRequest(request);
+        customerRepository.save(customer);
+    }
 
+    @Override
+    public void add(AddDemographicRequest request) {
+        Customer customer = CustomerMapper.INSTANCE.customerFromAddDemographicRequest(request);
         customerRepository.save(customer);
     }
 
