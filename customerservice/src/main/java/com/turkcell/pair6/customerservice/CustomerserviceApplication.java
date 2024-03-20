@@ -2,8 +2,11 @@ package com.turkcell.pair6.customerservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
+@EnableFeignClients
+// @EnableDiscoverClient => Eski versiyonlarda gerekli idi
 public class CustomerserviceApplication {
 
 	public static void main(String[] args) {
