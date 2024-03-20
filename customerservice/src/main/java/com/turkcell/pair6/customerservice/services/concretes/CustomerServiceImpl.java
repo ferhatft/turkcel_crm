@@ -58,6 +58,15 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void add(AddDemographicRequest request) {
+        List<Customer> customers = customerRepository.findAll();
+
+        for (Customer customer: customers)
+        {
+            if (customer.getNationalityId() == request.getNationalityId())
+                throw new BusinessException("A customer is already exist with this Nationality ID");
+        }
+
+
         Customer customer = CustomerMapper.INSTANCE.customerFromAddDemographicRequest(request);
         customerRepository.save(customer);
     }
