@@ -10,6 +10,7 @@ import com.turkcell.pair6.customerservice.services.dtos.requests.SearchCustomerR
 import com.turkcell.pair6.customerservice.services.dtos.responses.SearchCustomerResponse;
 import com.turkcell.pair6.customerservice.services.mappers.CustomerMapper;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.turkcell.pair6.customerservice.services.abstracts.CustomerService;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -17,15 +18,13 @@ import org.springframework.web.reactive.function.client.WebClient;
 import java.util.List;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class CustomerServiceImpl implements CustomerService {
 
     private  final CustomerRepository customerRepository;
-
-    //DOĞRu mu eklendi kontrol
     private final WebClient.Builder webClient;
-
     private final OrderServiceClient orderServiceClient;
+
     @Override
     public List<Customer> getAll() {
         return customerRepository.findAll();
@@ -42,7 +41,7 @@ public class CustomerServiceImpl implements CustomerService {
        */
 
         int result = orderServiceClient.getCustomerIdByOrderId(request.getOrderNumber());
-
+        System.out.println("orderservicten gelen sonuç "+result);
         if (customerRepository.search(request).isEmpty()){
             throw new BusinessException("No customer found! Would you like to create the customer?");
         }

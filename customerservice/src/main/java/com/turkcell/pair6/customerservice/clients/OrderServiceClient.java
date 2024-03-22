@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 // TODO: Use discovery server ( araştırma ve uygulama)
 // TODO: LOAD BALANCING (araştırma)
-@FeignClient(name="orderservice", url="http://localhost:8079")
+@FeignClient(name="orderservice", url="http://localhost:8077")
 public interface OrderServiceClient {
     @GetMapping("/api/orders")
     int getCustomerIdByOrderId(@RequestParam("orderId") String orderId);
