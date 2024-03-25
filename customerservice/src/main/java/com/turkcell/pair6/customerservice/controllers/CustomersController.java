@@ -1,9 +1,7 @@
 package com.turkcell.pair6.customerservice.controllers;
 
 import com.turkcell.pair6.customerservice.entities.Customer;
-import com.turkcell.pair6.customerservice.services.dtos.requests.AddCustomerRequest;
-import com.turkcell.pair6.customerservice.services.dtos.requests.AddDemographicRequest;
-import com.turkcell.pair6.customerservice.services.dtos.requests.SearchCustomerRequest;
+import com.turkcell.pair6.customerservice.services.dtos.requests.*;
 import com.turkcell.pair6.customerservice.services.dtos.responses.SearchCustomerResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -43,6 +41,11 @@ public class CustomersController {
     @DeleteMapping
     public void delete(int id) {
         customerService.delete(id);
+    }
+
+    @PutMapping
+    public void update(@RequestBody UpdateCustomerRequest updateCustomerRequest) {
+        customerService.update(updateCustomerRequest);
     }
 
 }

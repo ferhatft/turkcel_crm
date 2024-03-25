@@ -4,6 +4,7 @@ import com.turkcell.pair6.customerservice.entities.Address;
 import com.turkcell.pair6.customerservice.repositories.AddressRepository;
 import com.turkcell.pair6.customerservice.services.abstracts.AddressService;
 import com.turkcell.pair6.customerservice.services.dtos.requests.AddAddressRequest;
+import com.turkcell.pair6.customerservice.services.dtos.requests.UpdateAddressRequest;
 import com.turkcell.pair6.customerservice.services.mappers.AddressMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,5 +29,18 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public void delete(int id) {
         addressRepository.deleteById(id);
+    }
+
+    @Override
+    public void update(UpdateAddressRequest request) {
+        List<Address> addresses = addressRepository.findAll();
+
+        for(Address address : addresses){
+            if(address.getId()== request.getId()){
+                address = AddressMapper.INSTANCE.addressFromUpdateRequest(request);
+                addressRepository.save(address);
+                break;
+            }
+        }
     }
 }

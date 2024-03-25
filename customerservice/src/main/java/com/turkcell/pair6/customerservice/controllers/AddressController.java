@@ -3,6 +3,7 @@ package com.turkcell.pair6.customerservice.controllers;
 import com.turkcell.pair6.customerservice.entities.Address;
 import com.turkcell.pair6.customerservice.services.abstracts.AddressService;
 import com.turkcell.pair6.customerservice.services.dtos.requests.AddAddressRequest;
+import com.turkcell.pair6.customerservice.services.dtos.requests.UpdateAddressRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,5 +29,10 @@ public class AddressController {
     @DeleteMapping
     public void delete(int id){
         addressService.delete(id);
+    }
+
+    @PutMapping
+    public void update(@RequestBody UpdateAddressRequest updateAddressRequest) {
+        addressService.update(updateAddressRequest);
     }
 }

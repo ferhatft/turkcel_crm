@@ -3,6 +3,7 @@ package com.turkcell.pair6.customerservice.services.abstracts;
 
 import com.turkcell.pair6.customerservice.entities.Address;
 import com.turkcell.pair6.customerservice.services.dtos.requests.AddAddressRequest;
+import com.turkcell.pair6.customerservice.services.dtos.requests.UpdateAddressRequest;
 
 import java.util.List;
 
@@ -12,4 +13,6 @@ public interface AddressService {
     void add(AddAddressRequest request);
 
     void delete(int id);
+
+    void update(UpdateAddressRequest updateAddressRequest);
 }
