@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -21,5 +22,10 @@ public class ContactServiceImpl implements ContactService {
     @Override
     public void delete(int id) {
         contactRepository.deleteById(id);
+    }
+
+    @Override
+    public Optional<Contact> getById(int id) {
+        return contactRepository.findById(id);
     }
 }

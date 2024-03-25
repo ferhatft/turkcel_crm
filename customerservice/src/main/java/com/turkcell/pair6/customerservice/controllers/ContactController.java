@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/contacts")
@@ -19,6 +20,11 @@ public class ContactController {
     @GetMapping
     public List<Contact> getAll() {
         return contactService.getAll();
+    }
+
+    @GetMapping("getById")
+    public Optional<Contact> getById(int id){
+        return contactService.getById(id);
     }
 
     @DeleteMapping
