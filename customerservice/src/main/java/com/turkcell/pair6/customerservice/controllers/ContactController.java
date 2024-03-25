@@ -2,11 +2,9 @@ package com.turkcell.pair6.customerservice.controllers;
 
 import com.turkcell.pair6.customerservice.entities.Contact;
 import com.turkcell.pair6.customerservice.services.abstracts.ContactService;
+import com.turkcell.pair6.customerservice.services.dtos.requests.AddContactRequest;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,5 +28,10 @@ public class ContactController {
     @DeleteMapping
     public void delete(int id){
         contactService.delete(id);
+    }
+
+    @PostMapping
+    public void add (@RequestBody AddContactRequest request){
+        contactService.add(request);
     }
 }
