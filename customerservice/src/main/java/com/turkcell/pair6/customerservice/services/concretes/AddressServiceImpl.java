@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -42,5 +43,10 @@ public class AddressServiceImpl implements AddressService {
                 break;
             }
         }
+    }
+
+    @Override
+    public Optional<Address> getById(int id) {
+        return addressRepository.findById(id);
     }
 }

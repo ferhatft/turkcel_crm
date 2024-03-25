@@ -6,6 +6,7 @@ import com.turkcell.pair6.customerservice.services.dtos.requests.AddAddressReque
 import com.turkcell.pair6.customerservice.services.dtos.requests.UpdateAddressRequest;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface AddressService {
     List<Address> getAll();
@@ -15,4 +16,6 @@ public interface AddressService {
     void delete(int id);
 
     void update(UpdateAddressRequest updateAddressRequest);
+
+    Optional<Address> getById(int id);
 }

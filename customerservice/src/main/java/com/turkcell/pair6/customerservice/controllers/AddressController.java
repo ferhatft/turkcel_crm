@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/addresses")
@@ -18,6 +19,11 @@ public class AddressController {
     @GetMapping
     public List<Address> getAll() {
         return addressService.getAll();
+    }
+
+    @GetMapping("getById")
+    public Optional<Address> getById(int id){
+        return addressService.getById(id);
     }
 
     @PostMapping
