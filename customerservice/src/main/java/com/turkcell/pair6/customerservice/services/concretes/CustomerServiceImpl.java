@@ -70,5 +70,10 @@ public class CustomerServiceImpl implements CustomerService {
         customerRepository.save(customer);
     }
 
+    @Override
+    public void delete(int id) {
+        customerRepository.deleteById(id);
+    }
+
 
 }

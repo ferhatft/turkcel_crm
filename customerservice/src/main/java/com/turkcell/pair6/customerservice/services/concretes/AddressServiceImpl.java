@@ -24,4 +24,9 @@ public class AddressServiceImpl implements AddressService {
         Address address = AddressMapper.INSTANCE.addressFromAddRequest(request);
         addressRepository.save(address);
     }
+
+    @Override
+    public void delete(int id) {
+        addressRepository.deleteById(id);
+    }
 }

@@ -16,4 +16,6 @@ public interface CustomerService {
     void add(AddCustomerRequest request);
 
     void add(AddDemographicRequest request);
+
+    void delete(int id);
 }

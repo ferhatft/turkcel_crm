@@ -40,4 +40,9 @@ public class CustomersController {
         customerService.add(request);
     }
 
+    @DeleteMapping
+    public void delete(int id) {
+        customerService.delete(id);
+    }
+
 }

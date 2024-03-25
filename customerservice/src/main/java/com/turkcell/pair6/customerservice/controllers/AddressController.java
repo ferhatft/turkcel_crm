@@ -24,4 +24,9 @@ public class AddressController {
     {
         addressService.add(request);
     }
+
+    @DeleteMapping
+    public void delete(int id){
+        addressService.delete(id);
+    }
 }

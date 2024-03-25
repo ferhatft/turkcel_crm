@@ -10,4 +10,6 @@ public interface AddressService {
     List<Address> getAll();
 
     void add(AddAddressRequest request);
+
+    void delete(int id);
 }
