@@ -1,10 +1,13 @@
 package com.turkcell.pair6.customerservice.services.dtos.requests;
 
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -13,22 +16,27 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UpdateCustomerRequest {
-
+    @Min(1)
     private int id;
 
+    @NotBlank
     private String firstName;
 
     private String middleName;
 
+    @NotBlank
     private String lastName;
 
+    @NotBlank
     private String gender;
 
     private String motherName;
 
     private String fatherName;
 
+    @Min(1)
     private int nationalityId;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthDate;
 }

@@ -4,6 +4,7 @@ import com.turkcell.pair6.customerservice.entities.Address;
 import com.turkcell.pair6.customerservice.services.abstracts.AddressService;
 import com.turkcell.pair6.customerservice.services.dtos.requests.AddAddressRequest;
 import com.turkcell.pair6.customerservice.services.dtos.requests.UpdateAddressRequest;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,7 +28,7 @@ public class AddressController {
     }
 
     @PostMapping
-    public void add(@RequestBody AddAddressRequest request)
+    public void add(@RequestBody @Valid AddAddressRequest request)
     {
         addressService.add(request);
     }
@@ -38,7 +39,7 @@ public class AddressController {
     }
 
     @PutMapping
-    public void update(@RequestBody UpdateAddressRequest updateAddressRequest) {
+    public void update(@RequestBody @Valid UpdateAddressRequest updateAddressRequest) {
         addressService.update(updateAddressRequest);
     }
 }

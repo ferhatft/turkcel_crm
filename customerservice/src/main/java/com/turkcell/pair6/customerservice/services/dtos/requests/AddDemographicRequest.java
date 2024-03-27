@@ -1,11 +1,13 @@
 package com.turkcell.pair6.customerservice.services.dtos.requests;
 
 import jakarta.persistence.Column;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -22,7 +24,7 @@ public class AddDemographicRequest {
     @NotBlank
     private String lastName;
 
-    @NotBlank
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthDate;
 
     @NotBlank
@@ -32,6 +34,6 @@ public class AddDemographicRequest {
 
     private String fatherName;
 
-    @NotBlank
+    @Min(1)
     private int nationalityId;
 }
