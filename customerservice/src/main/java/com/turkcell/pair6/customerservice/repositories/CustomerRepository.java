@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 
 public interface CustomerRepository extends JpaRepository<Customer, Integer> {
@@ -18,4 +19,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
             " where ( :#{#request.getNationalityId()} <= 0 or c.nationalityId= :#{#request.getNationalityId()})" +
             " and ( :#{#request.getCustomerNo()} is null or c.customerNo= :#{#request.getCustomerNo()})")
     List<SearchCustomerResponse> search(@Param("request") SearchCustomerRequest request);
+
+    Optional<Customer> findByNationalityId(int nationalityId);
 }

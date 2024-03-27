@@ -10,6 +10,7 @@ import com.turkcell.pair6.customerservice.services.dtos.requests.SearchCustomerR
 import com.turkcell.pair6.customerservice.services.dtos.requests.UpdateCustomerRequest;
 import com.turkcell.pair6.customerservice.services.dtos.responses.SearchCustomerResponse;
 import com.turkcell.pair6.customerservice.services.mappers.CustomerMapper;
+import com.turkcell.pair6.customerservice.services.rules.CustomerBusinessRules;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.turkcell.pair6.customerservice.services.abstracts.CustomerService;
@@ -23,6 +24,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository customerRepository;
     private final WebClient.Builder webClient;
+    private final CustomerBusinessRules customerBusinessRules;
     private final OrderServiceClient orderServiceClient;
 
     @Override
@@ -32,19 +34,10 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<SearchCustomerResponse> search(SearchCustomerRequest request) {
-      /*  var result = webClient.build()
-                .get()
-                .uri("htttp://localhost:8079/api/orders?orderId="+request.getOrderNumber())
-                .retrieve()
-                .bodyToMono(Integer.class)
-                .block(); // async durumu sync hale getiren fonkk
-       */
+        customerBusinessRules.customerNoExist(request);
 
         int result = orderServiceClient.getCustomerIdByOrderId(request.getOrderNumber());
-        System.out.println("orderservicten gelen sonuç " + result);
-        if (customerRepository.search(request).isEmpty()) {
-            throw new BusinessException("No customer found! Would you like to create the customer?");
-        }
+        request.setOrderNumber(String.valueOf(result));
 
         return customerRepository.search(request);
     }
@@ -57,13 +50,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void add(AddDemographicRequest request) {
-        List<Customer> customers = customerRepository.findAll();
-
-        for (Customer customer : customers) {
-            if (customer.getNationalityId() == request.getNationalityId())
-                throw new BusinessException("A customer is already exist with this Nationality ID");
-        }
-
+        customerBusinessRules.customerWithSameNationalityIdCanNotExist(request.getNationalityId());
 
         Customer customer = CustomerMapper.INSTANCE.customerFromAddDemographicRequest(request);
         customerRepository.save(customer);
@@ -76,6 +63,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void update(UpdateCustomerRequest request) {
+        customerBusinessRules.customerIdExist(request.getId());
+
         List<Customer> customers = customerRepository.findAll();
 
         for (Customer customer : customers) {
