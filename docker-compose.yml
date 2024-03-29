@@ -11,7 +11,7 @@ services:
       - "8001:8001"
     environment:
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8888/eureka/
-      - EUREKA_URL=http://discovery-server:8888
+      - EUREKA_URL=http://discovery-server:8888/
     depends_on:
       - discovery-server
     networks:
@@ -32,7 +32,7 @@ services:
       - SPRING_CLOUD_CONFIG_PROFILE=prod
       - SPRING_PROFILES_ACTIVE=prod
       - SPRING_CONFIG_PROFILE=prod
-      - CONFIGURL= configserver:http://config-server:8050/
+      - CONFIGURL=http://config-server:8050/
       #    restart: on-failure
     depends_on:
       - postgres
