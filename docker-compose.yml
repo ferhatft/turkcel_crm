@@ -16,16 +16,28 @@ services:
       - discovery-server
     networks:
       - common
+  config-server:
+    build: ./configserver
+    ports:
+      - "8050:8050"
+    networks:
+      - common
   customer-service:
     build: ./customerservice
     ports:
       - "8079:8083"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/customerdb
-      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8888/eureka/
+#      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/customerdb
+#      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8888/eureka/
+      - SPRING_CLOUD_CONFIG_PROFILE=prod
+      - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_CONFIG_PROFILE=prod
+      - CONFIGURL= configserver:http://config-server:8050/
+      #    restart: on-failure
     depends_on:
       - postgres
       - discovery-server
+      - config-server
     networks:
       - common
   order-service:
@@ -56,7 +68,7 @@ services:
     ports:
       - "5433:5432"
     environment:
-      - POSTGRES_PASSWORD=test
+      - POSTGRES_PASSWORD=2144
     volumes:
       - postgresql-volume:/var/lib/postgresql/data
     networks:
