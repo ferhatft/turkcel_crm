@@ -41,12 +41,14 @@ public class GlobalExceptionHandler {
         return validationProblemDetails;
     }
 
+
     @ExceptionHandler({Exception.class})
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ProblemDetails handleOtherExceptions(){
-        ProblemDetails problemDetails = new
-                ProblemDetails("Internal Server Error","Some error occured.");
-        return problemDetails;
+
+        return new ProblemDetails("Internal Server Error","Some error occured.");
     }
+
+
 
 }

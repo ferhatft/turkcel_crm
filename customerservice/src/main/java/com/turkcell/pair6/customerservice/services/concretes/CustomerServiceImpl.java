@@ -1,6 +1,5 @@
 package com.turkcell.pair6.customerservice.services.concretes;
 
-import com.turkcell.pair6.customerservice.clients.OrderServiceClient;
 import com.turkcell.pair6.customerservice.entities.Customer;
 import com.turkcell.pair6.customerservice.repositories.CustomerRepository;
 import com.turkcell.pair6.customerservice.services.abstracts.CustomerService;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor

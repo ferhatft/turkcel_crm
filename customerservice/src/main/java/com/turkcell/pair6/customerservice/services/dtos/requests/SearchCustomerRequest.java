@@ -17,6 +17,7 @@ public class SearchCustomerRequest
     private String customerNo;
     private String accountNumber;
     private String gsmNumber;
+    private String middleName;
     private String firstName;
     private String lastName;
     private String orderNumber;

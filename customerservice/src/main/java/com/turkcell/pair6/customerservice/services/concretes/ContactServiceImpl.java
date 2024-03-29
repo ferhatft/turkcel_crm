@@ -6,10 +6,8 @@ import com.turkcell.pair6.customerservice.services.abstracts.ContactService;
 import com.turkcell.pair6.customerservice.services.dtos.requests.AddContactRequest;
 import com.turkcell.pair6.customerservice.services.mappers.ContactMapper;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Optional;
 
