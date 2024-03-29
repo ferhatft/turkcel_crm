@@ -6,7 +6,6 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
 @EnableFeignClients
-// @EnableDiscoverClient => Eski versiyonlarda gerekli idi
 public class CustomerserviceApplication {
 
 	public static void main(String[] args) {
@@ -14,7 +13,5 @@ public class CustomerserviceApplication {
 		SpringApplication.run(CustomerserviceApplication.class, args);
 	}
 
-	//CustomerService
-	//DB Tasarımı
-	//docker-compose' CustomerService için gerekli konfigürasyonlar
+
 }

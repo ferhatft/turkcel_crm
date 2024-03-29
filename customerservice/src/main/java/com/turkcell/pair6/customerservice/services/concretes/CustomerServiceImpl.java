@@ -1,20 +1,19 @@
 package com.turkcell.pair6.customerservice.services.concretes;
 
 import com.turkcell.pair6.customerservice.clients.OrderServiceClient;
-import com.turkcell.pair6.customerservice.core.exception.types.BusinessException;
 import com.turkcell.pair6.customerservice.entities.Customer;
 import com.turkcell.pair6.customerservice.repositories.CustomerRepository;
-import com.turkcell.pair6.customerservice.services.dtos.requests.AddCustomerRequest;
 import com.turkcell.pair6.customerservice.services.dtos.requests.AddDemographicRequest;
 import com.turkcell.pair6.customerservice.services.dtos.requests.SearchCustomerRequest;
 import com.turkcell.pair6.customerservice.services.dtos.requests.UpdateCustomerRequest;
+import com.turkcell.pair6.customerservice.services.dtos.responses.AddCustomerResponse;
 import com.turkcell.pair6.customerservice.services.dtos.responses.SearchCustomerResponse;
 import com.turkcell.pair6.customerservice.services.mappers.CustomerMapper;
 import com.turkcell.pair6.customerservice.services.rules.CustomerBusinessRules;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.turkcell.pair6.customerservice.services.abstracts.CustomerService;
-import org.springframework.web.reactive.function.client.WebClient;
+
 
 import java.util.List;
 
@@ -23,7 +22,6 @@ import java.util.List;
 public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository customerRepository;
-    private final WebClient.Builder webClient;
     private final CustomerBusinessRules customerBusinessRules;
     private final OrderServiceClient orderServiceClient;
 
@@ -39,21 +37,23 @@ public class CustomerServiceImpl implements CustomerService {
         int result = orderServiceClient.getCustomerIdByOrderId(request.getOrderNumber());
         request.setOrderNumber(String.valueOf(result));
 
+
+
         return customerRepository.search(request);
     }
 
     @Override
-    public void add(AddCustomerRequest request) {
-        Customer customer = CustomerMapper.INSTANCE.customerFromAddRequest(request);
-        customerRepository.save(customer);
-    }
-
-    @Override
-    public void add(AddDemographicRequest request) {
+    public AddCustomerResponse add(AddDemographicRequest request) {
         customerBusinessRules.customerWithSameNationalityIdCanNotExist(request.getNationalityId());
 
         Customer customer = CustomerMapper.INSTANCE.customerFromAddDemographicRequest(request);
         customerRepository.save(customer);
+
+
+
+
+        return CustomerMapper.INSTANCE.customerResponseFromAddDemographicRequest(request);
+
     }
 
     @Override
@@ -62,18 +62,22 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void update(UpdateCustomerRequest request) {
-        customerBusinessRules.customerIdExist(request.getId());
-
+    public AddCustomerResponse update(UpdateCustomerRequest request) {
+        customerBusinessRules.customerNatIdExist(request.getNationalityId());
+        AddCustomerResponse addCustomerResponse = null;
         List<Customer> customers = customerRepository.findAll();
 
         for (Customer customer : customers) {
-            if (customer.getId() == request.getId()) {
+            if (customer.getNationalityId() == request.getNationalityId()) {
                 customer = CustomerMapper.INSTANCE.customerFromUpdateRequest(request);
                 customerRepository.save(customer);
+
+                addCustomerResponse = CustomerMapper.INSTANCE.customerResponseFromCustomer(customer);
                 break;
             }
         }
+
+        return addCustomerResponse;
     }
 
 

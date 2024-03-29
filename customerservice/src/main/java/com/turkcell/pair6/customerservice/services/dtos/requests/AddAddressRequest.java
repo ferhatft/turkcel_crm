@@ -12,6 +12,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AddAddressRequest {
+
+
     @NotBlank
     private String city;
 

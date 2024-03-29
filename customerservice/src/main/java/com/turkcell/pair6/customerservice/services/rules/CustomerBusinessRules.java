@@ -15,12 +15,14 @@ import java.util.Optional;
 public class CustomerBusinessRules {
     private final CustomerRepository customerRepository;
 
-    public void customerIdExist(int id)
+
+
+    public void customerNatIdExist(int id)
     {
-        Optional<Customer> customer = customerRepository.findById(id);
+        Optional<Customer> customer = customerRepository.findByNationalityId(id);
 
         if(customer.isEmpty())
-            throw new BusinessException(CustomerMessages.customerIdExists);
+            throw new BusinessException(CustomerMessages.customerNatIdExist);
     }
 
     public void customerNoExist(SearchCustomerRequest request)

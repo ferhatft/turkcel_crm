@@ -16,8 +16,9 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UpdateCustomerRequest {
+
     @Min(1)
-    private int id;
+    private int nationalityId;
 
     @NotBlank
     private String firstName;
@@ -34,8 +35,7 @@ public class UpdateCustomerRequest {
 
     private String fatherName;
 
-    @Min(1)
-    private int nationalityId;
+
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthDate;
