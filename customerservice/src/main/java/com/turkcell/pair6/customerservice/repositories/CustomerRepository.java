@@ -3,10 +3,12 @@ package com.turkcell.pair6.customerservice.repositories;
 import com.turkcell.pair6.customerservice.entities.Customer;
 import com.turkcell.pair6.customerservice.services.dtos.requests.SearchCustomerRequest;
 import com.turkcell.pair6.customerservice.services.dtos.responses.SearchCustomerResponse;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,4 +23,5 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
     List<SearchCustomerResponse> search(@Param("request") SearchCustomerRequest request);
 
     Optional<Customer> findByNationalityId(int nationalityId);
+
 }

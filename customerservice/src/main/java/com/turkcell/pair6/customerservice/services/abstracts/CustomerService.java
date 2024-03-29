@@ -10,7 +10,7 @@ import com.turkcell.pair6.customerservice.services.dtos.responses.SearchCustomer
 import java.util.List;
 
 public interface CustomerService {
-    List<Customer> getAll();
+    List<AddCustomerResponse> getAll();
 
     List<SearchCustomerResponse> search(SearchCustomerRequest request);
 
