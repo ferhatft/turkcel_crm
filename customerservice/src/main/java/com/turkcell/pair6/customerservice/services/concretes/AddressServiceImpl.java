@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +29,7 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public void add(AddAddressRequest request) {
         Address address = AddressMapper.INSTANCE.addressFromAddRequest(request);
+        address.setCreatedDate(LocalDateTime.now());
         addressRepository.save(address);
     }
 
@@ -43,6 +45,7 @@ public class AddressServiceImpl implements AddressService {
         for(Address address : addresses){
             if(address.getId()== request.getId()){
                 address = AddressMapper.INSTANCE.addressFromUpdateRequest(request);
+                address.setUpdatedDate(LocalDateTime.now());
                 addressRepository.save(address);
                 break;
             }

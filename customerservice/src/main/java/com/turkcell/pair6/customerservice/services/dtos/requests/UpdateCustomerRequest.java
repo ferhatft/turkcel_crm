@@ -17,8 +17,8 @@ import java.util.Date;
 @AllArgsConstructor
 public class UpdateCustomerRequest {
 
-    @Min(1)
-    private int nationalityId;
+    @NotBlank
+    private String nationalityId;
 
     @NotBlank
     private String firstName;

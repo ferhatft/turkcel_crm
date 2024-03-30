@@ -31,7 +31,7 @@ public class AddCustomerResponse {
 
     private String fatherName;
 
-    private int nationalityId;
+    private String nationalityId;
 
     private Date birthDate;
 

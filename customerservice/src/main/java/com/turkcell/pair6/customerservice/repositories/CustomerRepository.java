@@ -16,7 +16,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
     @Query("Select new com.turkcell.pair6.customerservice.services.dtos.responses." +
             "SearchCustomerResponse(c.customerNo, c.firstName, c.lastName, c.middleName, c.nationalityId)" +
             " from Customer c" +
-            " where (:#{#request.getNationalityId()} <= 0 or c.nationalityId = :#{#request.getNationalityId()})" +
+            " where (:#{#request.getNationalityId()} is null or c.nationalityId = :#{#request.getNationalityId()} or :#{#request.getNationalityId()} = '')" +
             " and (:#{#request.getFirstName()} is null or c.firstName = :#{#request.getFirstName()} or :#{#request.getFirstName()} = '')" +
             " and (:#{#request.getCustomerNo()} is null or c.customerNo = :#{#request.getCustomerNo()} or :#{#request.getCustomerNo()} = '')" +
             " and (:#{#request.getLastName()} is null or c.lastName = :#{#request.getLastName()} or :#{#request.getLastName()} = '')" +
@@ -24,6 +24,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
     List<SearchCustomerResponse> search(@Param("request") SearchCustomerRequest request);
 
 
-    Optional<Customer> findByNationalityId(int nationalityId);
+    Optional<Customer> findByNationalityId(String nationalityId);
 
 }

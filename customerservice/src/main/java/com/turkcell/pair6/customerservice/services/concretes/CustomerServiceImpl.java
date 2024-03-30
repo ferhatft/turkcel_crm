@@ -15,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +43,7 @@ public class CustomerServiceImpl implements CustomerService {
         customerBusinessRules.customerWithSameNationalityIdCanNotExist(request.getNationalityId());
 
         Customer customer = CustomerMapper.INSTANCE.customerFromAddDemographicRequest(request);
+        customer.setCreatedDate(LocalDateTime.now());
         customerRepository.save(customer);
 
         return CustomerMapper.INSTANCE.customerResponseFromAddDemographicRequest(request);
@@ -62,6 +64,7 @@ public class CustomerServiceImpl implements CustomerService {
         for (Customer customer : customers) {
             if (customer.getNationalityId() == request.getNationalityId()) {
                 customer = CustomerMapper.INSTANCE.customerFromUpdateRequest(request);
+                customer.setUpdatedDate(LocalDateTime.now());
                 customerRepository.save(customer);
 
                 addCustomerResponse = CustomerMapper.INSTANCE.customerResponseFromCustomer(customer);

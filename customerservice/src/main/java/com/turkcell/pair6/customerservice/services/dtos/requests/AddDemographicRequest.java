@@ -34,6 +34,6 @@ public class AddDemographicRequest {
 
     private String fatherName;
 
-    @Min(1)
-    private int nationalityId;
+    @NotBlank
+    private String nationalityId;
 }

@@ -1,6 +1,7 @@
 package com.turkcell.pair6.customerservice.entities;
 
 
+import com.turkcell.pair6.customerservice.core.entities.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,7 +15,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Customer {
+public class Customer extends BaseEntity {
 
     @Column(name = "id")
     @Id
@@ -43,7 +44,7 @@ public class Customer {
     private String fatherName;
 
     @Column(name = "nationality_id")
-    private int nationalityId;
+    private String nationalityId;
 
     @Column(name = "birth_date")
     private Date birthDate;

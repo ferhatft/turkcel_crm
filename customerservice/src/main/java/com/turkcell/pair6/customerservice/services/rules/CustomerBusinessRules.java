@@ -17,9 +17,9 @@ public class CustomerBusinessRules {
 
 
 
-    public void customerNatIdExist(int id)
+    public void customerNatIdExist(String nationalityId)
     {
-        Optional<Customer> customer = customerRepository.findByNationalityId(id);
+        Optional<Customer> customer = customerRepository.findByNationalityId(nationalityId);
 
         if(customer.isEmpty())
             throw new BusinessException(CustomerMessages.customerNatIdExist);
@@ -32,7 +32,7 @@ public class CustomerBusinessRules {
         }
     }
 
-    public void customerWithSameNationalityIdCanNotExist(int nationalityId)
+    public void customerWithSameNationalityIdCanNotExist(String nationalityId)
     {
         Optional<Customer> customer = customerRepository.findByNationalityId(nationalityId);
 

@@ -13,7 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class SearchCustomerRequest
 {
-    private int nationalityId;
+    private String nationalityId;
     private String customerNo;
     private String accountNumber;
     private String gsmNumber;
