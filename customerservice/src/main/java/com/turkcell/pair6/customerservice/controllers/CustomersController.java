@@ -6,6 +6,8 @@ import com.turkcell.pair6.customerservice.services.dtos.responses.AddCustomerRes
 import com.turkcell.pair6.customerservice.services.dtos.responses.SearchCustomerResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 import com.turkcell.pair6.customerservice.services.abstracts.CustomerService;
 
@@ -19,8 +21,9 @@ public class CustomersController {
     private final CustomerService customerService;
 
     @GetMapping
-    public List<AddCustomerResponse> getAll() {
-        return customerService.getAll();
+    public Page<AddCustomerResponse> getAll(@RequestParam(defaultValue = "0") int pageNumber,
+                                 @RequestParam(defaultValue = "10") int pageSize) {
+        return customerService.getAll(PageRequest.of(pageNumber, pageSize));
     }
 
     @PostMapping("search")

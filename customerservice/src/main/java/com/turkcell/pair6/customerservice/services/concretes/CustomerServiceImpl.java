@@ -11,6 +11,8 @@ import com.turkcell.pair6.customerservice.services.dtos.responses.SearchCustomer
 import com.turkcell.pair6.customerservice.services.mappers.CustomerMapper;
 import com.turkcell.pair6.customerservice.services.rules.CustomerBusinessRules;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,16 +26,9 @@ public class CustomerServiceImpl implements CustomerService {
     private final CustomerBusinessRules customerBusinessRules;
 
     @Override
-    public List<AddCustomerResponse> getAll() {
-        List<Customer> customers = customerRepository.findAll();
-        List<AddCustomerResponse> responseList = new ArrayList<>();
-
-        for (Customer customer : customers) {
-            AddCustomerResponse response = CustomerMapper.INSTANCE.customerResponseFromCustomer(customer);
-            responseList.add(response);
-        }
-
-        return responseList;
+    public Page<AddCustomerResponse> getAll(Pageable pageable) {
+        Page<Customer> customerPage = customerRepository.findAll(pageable);
+        return customerPage.map(customer -> CustomerMapper.INSTANCE.customerResponseFromCustomer(customer));
     }
 
     @Override
