@@ -5,8 +5,11 @@ import com.turkcell.pair6.customerservice.repositories.AddressRepository;
 import com.turkcell.pair6.customerservice.services.abstracts.AddressService;
 import com.turkcell.pair6.customerservice.services.dtos.requests.AddAddressRequest;
 import com.turkcell.pair6.customerservice.services.dtos.requests.UpdateAddressRequest;
+import com.turkcell.pair6.customerservice.services.dtos.responses.AddressResponse;
 import com.turkcell.pair6.customerservice.services.mappers.AddressMapper;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,8 +20,9 @@ import java.util.Optional;
 public class AddressServiceImpl implements AddressService {
     private final AddressRepository addressRepository;
     @Override
-    public List<Address> getAll() {
-        return addressRepository.findAll();
+    public Page<AddressResponse> getAll(Pageable pageable) {
+        Page<Address> addressPage = addressRepository.findAll(pageable);
+        return addressPage.map(address -> AddressMapper.INSTANCE.addressResponseFromAddress(address));
     }
 
     @Override

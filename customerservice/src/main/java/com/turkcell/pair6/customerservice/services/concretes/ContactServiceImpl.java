@@ -4,8 +4,11 @@ import com.turkcell.pair6.customerservice.entities.Contact;
 import com.turkcell.pair6.customerservice.repositories.ContactRepository;
 import com.turkcell.pair6.customerservice.services.abstracts.ContactService;
 import com.turkcell.pair6.customerservice.services.dtos.requests.AddContactRequest;
+import com.turkcell.pair6.customerservice.services.dtos.responses.ContactResponse;
 import com.turkcell.pair6.customerservice.services.mappers.ContactMapper;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,8 +22,9 @@ public class ContactServiceImpl implements ContactService {
     private final ContactRepository contactRepository;
 
     @Override
-    public List<Contact> getAll() {
-        return contactRepository.findAll();
+    public Page<ContactResponse> getAll(Pageable pageable) {
+        Page<Contact> contactPage = contactRepository.findAll(pageable);
+        return contactPage.map(contact -> ContactMapper.INSTANCE.contactResponseFromContact(contact));
     }
 
     @Override

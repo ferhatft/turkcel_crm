@@ -3,6 +3,7 @@ package com.turkcell.pair6.customerservice.services.mappers;
 import com.turkcell.pair6.customerservice.entities.Address;
 import com.turkcell.pair6.customerservice.services.dtos.requests.AddAddressRequest;
 import com.turkcell.pair6.customerservice.services.dtos.requests.UpdateAddressRequest;
+import com.turkcell.pair6.customerservice.services.dtos.responses.AddressResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -12,4 +13,6 @@ public interface AddressMapper {
 
     Address addressFromAddRequest(AddAddressRequest request);
     Address addressFromUpdateRequest(UpdateAddressRequest request);
+
+    AddressResponse addressResponseFromAddress(Address address);
 }

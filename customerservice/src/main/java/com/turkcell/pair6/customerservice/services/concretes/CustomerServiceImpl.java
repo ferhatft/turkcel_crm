@@ -44,9 +44,6 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customer = CustomerMapper.INSTANCE.customerFromAddDemographicRequest(request);
         customerRepository.save(customer);
 
-
-
-
         return CustomerMapper.INSTANCE.customerResponseFromAddDemographicRequest(request);
 
     }
