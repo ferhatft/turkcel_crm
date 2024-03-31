@@ -13,13 +13,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 
 @Service
 @AllArgsConstructor
 public class AddressServiceImpl implements AddressService {
     private final AddressRepository addressRepository;
+
     @Override
     public Page<AddressResponse> getAll(Pageable pageable) {
         Page<Address> addressPage = addressRepository.findAll(pageable);
@@ -40,16 +40,13 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public void update(UpdateAddressRequest request) {
-        List<Address> addresses = addressRepository.findAll();
+        Optional<Address> optionalAddress = addressRepository.findById(request.getId());
+        Address address = optionalAddress.orElse(null);
 
-        for(Address address : addresses){
-            if(address.getId()== request.getId()){
-                address = AddressMapper.INSTANCE.addressFromUpdateRequest(request);
-                address.setUpdatedDate(LocalDateTime.now());
-                addressRepository.save(address);
-                break;
-            }
-        }
+        Address updatedAddress = AddressMapper.INSTANCE.addressFromUpdateRequest(request);
+        updatedAddress.setUpdatedDate(LocalDateTime.now());
+        updatedAddress.setId(address.getId());
+        addressRepository.save(updatedAddress);
     }
 
     @Override

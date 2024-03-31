@@ -17,8 +17,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -59,22 +59,18 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public AddCustomerResponse update(UpdateCustomerRequest request) {
         customerBusinessRules.customerNatIdExist(request.getNationalityId());
-        AddCustomerResponse addCustomerResponse = null;
-        List<Customer> customers = customerRepository.findAll();
 
-        for (Customer customer : customers) {
-            if (customer.getNationalityId() == request.getNationalityId()) {
-                customer = CustomerMapper.INSTANCE.customerFromUpdateRequest(request);
-                customer.setUpdatedDate(LocalDateTime.now());
-                customerRepository.save(customer);
+        Optional<Customer> optionalCustomer = customerRepository.findByNationalityId(request.getNationalityId());
+        Customer customer = optionalCustomer.orElse(null);
 
-                addCustomerResponse = CustomerMapper.INSTANCE.customerResponseFromCustomer((IndividualCustomer) customer);
-                break;
-            }
-        }
+        Customer updatedCustomer = CustomerMapper.INSTANCE.customerFromUpdateRequest(request);
+        updatedCustomer.setUpdatedDate(LocalDateTime.now());
+        updatedCustomer.setId(customer.getId());
+        customerRepository.save(updatedCustomer);
 
-        return addCustomerResponse;
+        return CustomerMapper.INSTANCE.customerResponseFromCustomer((IndividualCustomer) updatedCustomer);
     }
+
 
 
 }
