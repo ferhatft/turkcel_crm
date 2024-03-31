@@ -1,6 +1,7 @@
 package com.turkcell.pair6.customerservice.services.concretes;
 
 import com.turkcell.pair6.customerservice.entities.Customer;
+import com.turkcell.pair6.customerservice.entities.IndividualCustomer;
 import com.turkcell.pair6.customerservice.repositories.CustomerRepository;
 import com.turkcell.pair6.customerservice.services.abstracts.CustomerService;
 import com.turkcell.pair6.customerservice.services.dtos.requests.AddDemographicRequest;
@@ -29,7 +30,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Page<AddCustomerResponse> getAll(Pageable pageable) {
         Page<Customer> customerPage = customerRepository.findAll(pageable);
-        return customerPage.map(customer -> CustomerMapper.INSTANCE.customerResponseFromCustomer(customer));
+        return customerPage.map(customer -> CustomerMapper.INSTANCE.customerResponseFromCustomer((IndividualCustomer) customer));
     }
 
     @Override
@@ -67,7 +68,7 @@ public class CustomerServiceImpl implements CustomerService {
                 customer.setUpdatedDate(LocalDateTime.now());
                 customerRepository.save(customer);
 
-                addCustomerResponse = CustomerMapper.INSTANCE.customerResponseFromCustomer(customer);
+                addCustomerResponse = CustomerMapper.INSTANCE.customerResponseFromCustomer((IndividualCustomer) customer);
                 break;
             }
         }

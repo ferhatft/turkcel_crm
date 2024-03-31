@@ -10,12 +10,14 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 import java.util.List;
 
-@Table(name = "customers")
 @Entity
+@Table(name="customers")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "customer_type")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class Customer extends BaseEntity {
+@AllArgsConstructor
+public abstract class Customer extends BaseEntity {
 
     @Column(name = "id")
     @Id

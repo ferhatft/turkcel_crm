@@ -1,6 +1,7 @@
 package com.turkcell.pair6.customerservice.services.mappers;
 
 import com.turkcell.pair6.customerservice.entities.Customer;
+import com.turkcell.pair6.customerservice.entities.IndividualCustomer;
 import com.turkcell.pair6.customerservice.services.dtos.requests.AddDemographicRequest;
 import com.turkcell.pair6.customerservice.services.dtos.requests.UpdateCustomerRequest;
 import com.turkcell.pair6.customerservice.services.dtos.responses.AddCustomerResponse;
@@ -13,11 +14,11 @@ public interface CustomerMapper {
     CustomerMapper INSTANCE = Mappers.getMapper(CustomerMapper.class);
 
 
-    Customer customerFromUpdateRequest(UpdateCustomerRequest request);
+    IndividualCustomer customerFromUpdateRequest(UpdateCustomerRequest request);
 
-    Customer customerFromAddDemographicRequest(AddDemographicRequest request);
+    IndividualCustomer customerFromAddDemographicRequest(AddDemographicRequest request);
 
     AddCustomerResponse customerResponseFromAddDemographicRequest(AddDemographicRequest request);
 
-    AddCustomerResponse customerResponseFromCustomer(Customer request);
+    AddCustomerResponse customerResponseFromCustomer(IndividualCustomer request);
 }
