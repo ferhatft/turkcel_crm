@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface ContactService {
 
 
-    Page<ContactResponse> getAll(Pageable pageable);
+    List<ContactResponse> getAll(Pageable pageable);
 
     void delete(int id);
 

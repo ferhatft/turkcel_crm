@@ -28,9 +28,9 @@ public class CustomerServiceImpl implements CustomerService {
     private final CustomerBusinessRules customerBusinessRules;
 
     @Override
-    public Page<AddCustomerResponse> getAll(Pageable pageable) {
+    public List<AddCustomerResponse> getAll(Pageable pageable) {
         Page<IndividualCustomer> customerPage = customerRepository.findAll(pageable);
-        return customerPage.map(customer -> CustomerMapper.INSTANCE.customerResponseFromCustomer(customer));
+        return customerPage.map(customer -> CustomerMapper.INSTANCE.customerResponseFromCustomer(customer)).getContent();
     }
 
     @Override

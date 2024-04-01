@@ -12,7 +12,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface CustomerService {
-    Page<AddCustomerResponse> getAll(Pageable pageable);
+    List<AddCustomerResponse> getAll(Pageable pageable);
 
     List<SearchCustomerResponse> search(SearchCustomerRequest request);
 

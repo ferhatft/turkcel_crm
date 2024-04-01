@@ -21,7 +21,7 @@ public class CustomersController {
     private final CustomerService customerService;
 
     @GetMapping
-    public Page<AddCustomerResponse> getAll(@RequestParam(defaultValue = "0") int pageNumber,
+    public List<AddCustomerResponse> getAll(@RequestParam(defaultValue = "0") int pageNumber,
                                  @RequestParam(defaultValue = "10") int pageSize) {
         return customerService.getAll(PageRequest.of(pageNumber, pageSize));
     }

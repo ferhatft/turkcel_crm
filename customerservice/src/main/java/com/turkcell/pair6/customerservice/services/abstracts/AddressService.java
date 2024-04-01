@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface AddressService {
-    Page<AddressResponse> getAll(Pageable pageable);
+    List<AddressResponse> getAll(Pageable pageable);
 
     void add(AddAddressRequest request);
 

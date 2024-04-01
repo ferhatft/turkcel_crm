@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,9 +22,9 @@ public class AddressServiceImpl implements AddressService {
     private final AddressRepository addressRepository;
 
     @Override
-    public Page<AddressResponse> getAll(Pageable pageable) {
+    public List<AddressResponse> getAll(Pageable pageable) {
         Page<Address> addressPage = addressRepository.findAll(pageable);
-        return addressPage.map(address -> AddressMapper.INSTANCE.addressResponseFromAddress(address));
+        return addressPage.map(address -> AddressMapper.INSTANCE.addressResponseFromAddress(address)).getContent();
     }
 
     @Override

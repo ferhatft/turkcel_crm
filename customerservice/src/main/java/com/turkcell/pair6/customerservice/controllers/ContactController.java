@@ -21,7 +21,7 @@ public class ContactController {
     private final ContactService contactService;
 
     @GetMapping
-    public Page<ContactResponse> getAll(@RequestParam(defaultValue = "0") int pageNumber,
+    public List<ContactResponse> getAll(@RequestParam(defaultValue = "0") int pageNumber,
                                         @RequestParam(defaultValue = "10") int pageSize) {
         return contactService.getAll(PageRequest.of(pageNumber, pageSize));
     }

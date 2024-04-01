@@ -21,7 +21,7 @@ public class AddressController {
     private final AddressService addressService;
 
     @GetMapping
-    public Page<AddressResponse> getAll(@RequestParam(defaultValue = "0") int pageNumber,
+    public List<AddressResponse> getAll(@RequestParam(defaultValue = "0") int pageNumber,
                                         @RequestParam(defaultValue = "10") int pageSize) {
         return addressService.getAll(PageRequest.of(pageNumber, pageSize));
     }

@@ -23,9 +23,9 @@ public class ContactServiceImpl implements ContactService {
     private final ContactRepository contactRepository;
 
     @Override
-    public Page<ContactResponse> getAll(Pageable pageable) {
+    public List<ContactResponse> getAll(Pageable pageable) {
         Page<Contact> contactPage = contactRepository.findAll(pageable);
-        return contactPage.map(contact -> ContactMapper.INSTANCE.contactResponseFromContact(contact));
+        return contactPage.map(contact -> ContactMapper.INSTANCE.contactResponseFromContact(contact)).getContent();
     }
 
     @Override
