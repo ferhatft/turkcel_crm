@@ -29,8 +29,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Page<AddCustomerResponse> getAll(Pageable pageable) {
-        Page<Customer> customerPage = customerRepository.findAll(pageable);
-        return customerPage.map(customer -> CustomerMapper.INSTANCE.customerResponseFromCustomer((IndividualCustomer) customer));
+        Page<IndividualCustomer> customerPage = customerRepository.findAll(pageable);
+        return customerPage.map(customer -> CustomerMapper.INSTANCE.customerResponseFromCustomer(customer));
     }
 
     @Override
@@ -43,12 +43,10 @@ public class CustomerServiceImpl implements CustomerService {
     public AddCustomerResponse add(AddDemographicRequest request) {
         customerBusinessRules.customerWithSameNationalityIdCanNotExist(request.getNationalityId());
 
-        Customer customer = CustomerMapper.INSTANCE.customerFromAddDemographicRequest(request);
-        customer.setCreatedDate(LocalDateTime.now());
+        IndividualCustomer customer = CustomerMapper.INSTANCE.customerFromAddDemographicRequest(request);
         customerRepository.save(customer);
 
         return CustomerMapper.INSTANCE.customerResponseFromAddDemographicRequest(request);
-
     }
 
     @Override
@@ -60,12 +58,12 @@ public class CustomerServiceImpl implements CustomerService {
     public AddCustomerResponse update(UpdateCustomerRequest request) {
         customerBusinessRules.customerNatIdExist(request.getNationalityId());
 
-        Optional<Customer> optionalCustomer = customerRepository.findByNationalityId(request.getNationalityId());
-        Customer customer = optionalCustomer.orElse(null);
+        Optional<IndividualCustomer> optionalCustomer = customerRepository.findByNationalityId(request.getNationalityId());
+        IndividualCustomer customer = optionalCustomer.orElse(null);
 
-        Customer updatedCustomer = CustomerMapper.INSTANCE.customerFromUpdateRequest(request);
-        updatedCustomer.setUpdatedDate(LocalDateTime.now());
+        IndividualCustomer updatedCustomer = CustomerMapper.INSTANCE.customerFromUpdateRequest(request);
         updatedCustomer.setId(customer.getId());
+        updatedCustomer.setCreatedDate(customer.getCreatedDate());
         customerRepository.save(updatedCustomer);
 
         return CustomerMapper.INSTANCE.customerResponseFromCustomer((IndividualCustomer) updatedCustomer);

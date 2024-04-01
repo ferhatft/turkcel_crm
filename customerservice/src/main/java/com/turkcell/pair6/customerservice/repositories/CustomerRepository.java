@@ -1,6 +1,7 @@
 package com.turkcell.pair6.customerservice.repositories;
 
 import com.turkcell.pair6.customerservice.entities.Customer;
+import com.turkcell.pair6.customerservice.entities.IndividualCustomer;
 import com.turkcell.pair6.customerservice.services.dtos.requests.SearchCustomerRequest;
 import com.turkcell.pair6.customerservice.services.dtos.responses.SearchCustomerResponse;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,11 +12,11 @@ import java.util.List;
 import java.util.Optional;
 
 
-public interface CustomerRepository extends JpaRepository<Customer, Integer> {
+public interface CustomerRepository extends JpaRepository<IndividualCustomer, Integer> {
 
     @Query("Select new com.turkcell.pair6.customerservice.services.dtos.responses." +
             "SearchCustomerResponse(c.customerNo, c.firstName, c.lastName, c.middleName, c.nationalityId)" +
-            " from Customer c" +
+            " from IndividualCustomer c" +
             " where (:#{#request.getNationalityId()} is null or c.nationalityId = :#{#request.getNationalityId()} or :#{#request.getNationalityId()} = '')" +
             " and (:#{#request.getFirstName()} is null or c.firstName = :#{#request.getFirstName()} or :#{#request.getFirstName()} = '')" +
             " and (:#{#request.getCustomerNo()} is null or c.customerNo = :#{#request.getCustomerNo()} or :#{#request.getCustomerNo()} = '')" +
@@ -24,6 +25,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
     List<SearchCustomerResponse> search(@Param("request") SearchCustomerRequest request);
 
 
-    Optional<Customer> findByNationalityId(String nationalityId);
+    Optional<IndividualCustomer> findByNationalityId(String nationalityId);
 
 }

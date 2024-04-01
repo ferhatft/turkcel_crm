@@ -42,13 +42,14 @@ public class GlobalExceptionHandler {
     }
 
 
+    /*
     @ExceptionHandler({Exception.class})
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ProblemDetails handleOtherExceptions(){
 
         return new ProblemDetails("Internal Server Error","Some error occured.");
     }
-
+*/
 
 
 }
