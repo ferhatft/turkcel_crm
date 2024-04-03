@@ -15,6 +15,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@DiscriminatorColumn(name = "customer_type")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Customer extends BaseEntity {
     @Id
@@ -30,5 +31,5 @@ public class Customer extends BaseEntity {
     @OneToOne(mappedBy = "customer")
     private Contact contact;
 
-    private String customer_type;
+
 }
