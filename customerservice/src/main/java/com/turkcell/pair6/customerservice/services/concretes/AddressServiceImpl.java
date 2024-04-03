@@ -24,7 +24,7 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public List<AddressResponse> getAll(Pageable pageable) {
         Page<Address> addressPage = addressRepository.findAll(pageable);
-        return addressPage.map(address -> AddressMapper.INSTANCE.addressResponseFromAddress(address)).getContent();
+        return addressPage.map(AddressMapper.INSTANCE::addressResponseFromAddress).getContent();
     }
 
     @Override
@@ -44,9 +44,7 @@ public class AddressServiceImpl implements AddressService {
         Optional<Address> optionalAddress = addressRepository.findById(request.getId());
         Address address = optionalAddress.orElse(null);
 
-        Address updatedAddress = AddressMapper.INSTANCE.addressFromUpdateRequest(request);
-        updatedAddress.setUpdatedDate(LocalDateTime.now());
-        updatedAddress.setId(address.getId());
+        Address updatedAddress = AddressMapper.INSTANCE.addressFromUpdateRequest(request , address);
         addressRepository.save(updatedAddress);
     }
 
