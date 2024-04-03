@@ -25,7 +25,7 @@ public class ContactServiceImpl implements ContactService {
     @Override
     public List<ContactResponse> getAll(Pageable pageable) {
         Page<Contact> contactPage = contactRepository.findAll(pageable);
-        return contactPage.map(contact -> ContactMapper.INSTANCE.contactResponseFromContact(contact)).getContent();
+        return contactPage.map(ContactMapper.INSTANCE::contactResponseFromContact).getContent();
     }
 
     @Override
@@ -41,7 +41,6 @@ public class ContactServiceImpl implements ContactService {
     @Override
     public void add(AddContactRequest request) {
         Contact contact = ContactMapper.INSTANCE.contactFromAddRequest(request);
-        contact.setCreatedDate(LocalDateTime.now());
         contactRepository.save(contact);
     }
 }
