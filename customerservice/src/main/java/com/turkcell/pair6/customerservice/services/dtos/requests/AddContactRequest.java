@@ -1,5 +1,6 @@
 package com.turkcell.pair6.customerservice.services.dtos.requests;
 
+import com.turkcell.pair6.customerservice.core.service.constants.Messages;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -12,15 +13,15 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AddContactRequest {
-    @NotBlank
+    @NotBlank(message = Messages.ValidationErrors.FIELD_NOT_BLANK)
     private String email;
 
-    @NotBlank
+    @NotBlank(message = Messages.ValidationErrors.FIELD_NOT_BLANK)
     private String homePhone;
 
-    @NotBlank
+    @NotBlank(message = Messages.ValidationErrors.FIELD_NOT_BLANK)
     private String mobilePhone;
 
-    @NotBlank
+    @NotBlank(message = Messages.ValidationErrors.FIELD_NOT_BLANK)
     private String fax;
 }

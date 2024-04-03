@@ -1,5 +1,6 @@
 package com.turkcell.pair6.customerservice.services.dtos.requests;
 
+import com.turkcell.pair6.customerservice.core.service.constants.Messages;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -14,15 +15,15 @@ import lombok.Setter;
 public class AddAddressRequest {
 
 
-    @NotBlank
+    @NotBlank(message = Messages.ValidationErrors.FIELD_NOT_BLANK)
     private String city;
 
-    @NotBlank
+    @NotBlank(message = Messages.ValidationErrors.FIELD_NOT_BLANK)
     private String street;
 
-    @NotBlank
+    @NotBlank(message = Messages.ValidationErrors.FIELD_NOT_BLANK)
     private String houseNumber;
 
-    @NotBlank
+    @NotBlank(message = Messages.ValidationErrors.FIELD_NOT_BLANK)
     private String description;
 }
