@@ -1,4 +1,10 @@
 services:
+  config-server:
+    build: ./configserver
+    ports:
+      - "8050:8050"
+    networks:
+      - common
   discovery-server:
     build: ./discoveryserver
     ports:
@@ -10,25 +16,23 @@ services:
       - SPRING_PROFILES_ACTIVE=prod
       - SPRING_CONFIG_PROFILE=prod
       - CONFIGURL=http://config-server:8050/
+    depends_on:
+      - config-server
+    restart: on-failure
+
   gateway-server:
     build: ./gatewayserver
     ports:
       - "8001:8001"
     environment:
-#      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8888/eureka/
-#      - EUREKA_URL=http://discovery-server:8888/
       - SPRING_CLOUD_CONFIG_PROFILE=prod
       - SPRING_PROFILES_ACTIVE=prod
       - SPRING_CONFIG_PROFILE=prod
       - CONFIGURL=http://config-server:8050/
     depends_on:
+      - config-server
       - discovery-server
-    networks:
-      - common
-  config-server:
-    build: ./configserver
-    ports:
-      - "8050:8050"
+    restart: on-failure
     networks:
       - common
   customer-service:
@@ -36,8 +40,6 @@ services:
     ports:
       - "8079:8083"
     environment:
-#      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/customerdb
-#      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8888/eureka/
       - SPRING_CLOUD_CONFIG_PROFILE=prod
       - SPRING_PROFILES_ACTIVE=prod
       - SPRING_CONFIG_PROFILE=prod
@@ -54,8 +56,6 @@ services:
     ports:
       - "8077:8081"
     environment:
-#      - SPRING_DATA_MONGODB_URI=mongodb://root:root@mongodb:27018/orderservice?authSource=admin
-#      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8888/eureka/
       - SPRING_CLOUD_CONFIG_PROFILE=prod
       - SPRING_PROFILES_ACTIVE=prod
       - SPRING_CONFIG_PROFILE=prod
@@ -63,8 +63,11 @@ services:
     depends_on:
       - mongodb
       - discovery-server
+      - config-server
     networks:
       - common
+    restart: on-failure
+
   mongodb:
     image: mongo
     ports:
@@ -86,7 +89,6 @@ services:
       - postgresql-volume:/var/lib/postgresql/data
     networks:
       - common
-
 
 volumes:
   postgresql-volume:
