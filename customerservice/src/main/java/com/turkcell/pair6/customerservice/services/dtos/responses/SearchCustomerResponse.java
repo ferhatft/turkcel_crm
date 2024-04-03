@@ -14,5 +14,5 @@ public class SearchCustomerResponse {
     private String firstName;
     private String lastName;
     private String middleName;
-    private int nationalityId;
+    private String nationalityId;
 }

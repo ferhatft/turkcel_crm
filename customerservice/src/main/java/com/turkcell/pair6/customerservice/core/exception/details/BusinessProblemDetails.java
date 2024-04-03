@@ -7,6 +7,7 @@ import lombok.Setter;
 @Setter
 public class BusinessProblemDetails extends ProblemDetails{
     public BusinessProblemDetails() {
-        setErrorType("Business Rule Violation");
+        setTitle("Business Rule Violation");
+        setErrorType("https://turkcell.com/exceptions/business");
     }
 }

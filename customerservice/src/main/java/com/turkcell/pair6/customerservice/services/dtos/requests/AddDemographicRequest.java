@@ -1,39 +1,38 @@
 package com.turkcell.pair6.customerservice.services.dtos.requests;
 
-import jakarta.persistence.Column;
-import jakarta.validation.constraints.Min;
+
+import com.turkcell.pair6.customerservice.core.service.constants.Messages;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.util.Date;
+import java.time.LocalDate;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class AddDemographicRequest {
-    @NotBlank
+    @NotBlank(message = Messages.ValidationErrors.FIELD_NOT_BLANK)
     private String firstName;
 
     private String middleName;
 
-    @NotBlank
+    @NotBlank(message = Messages.ValidationErrors.FIELD_NOT_BLANK)
     private String lastName;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date birthDate;
+    @NotNull(message = Messages.ValidationErrors.FIELD_NOT_NULL)
+    private LocalDate birthDate;
 
-    @NotBlank
+    @NotBlank(message = Messages.ValidationErrors.FIELD_NOT_BLANK)
     private String gender;
 
     private String motherName;
 
     private String fatherName;
 
-    @NotBlank
+    @NotBlank(message = Messages.ValidationErrors.FIELD_NOT_BLANK)
     private String nationalityId;
 }

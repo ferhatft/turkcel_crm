@@ -1,11 +1,12 @@
 package com.turkcell.pair6.customerservice.services.rules;
 
 import com.turkcell.pair6.customerservice.core.exception.types.BusinessException;
-import com.turkcell.pair6.customerservice.entities.Customer;
+import com.turkcell.pair6.customerservice.core.service.abstracts.MessageService;
+import com.turkcell.pair6.customerservice.core.service.constants.Messages;
 import com.turkcell.pair6.customerservice.entities.IndividualCustomer;
 import com.turkcell.pair6.customerservice.repositories.CustomerRepository;
 import com.turkcell.pair6.customerservice.services.dtos.requests.SearchCustomerRequest;
-import com.turkcell.pair6.customerservice.services.messages.CustomerMessages;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +16,7 @@ import java.util.Optional;
 @Component
 public class CustomerBusinessRules {
     private final CustomerRepository customerRepository;
-
+    private final MessageService messageService;
 
 
     public void customerNatIdExist(String nationalityId)
@@ -23,13 +24,13 @@ public class CustomerBusinessRules {
         Optional<IndividualCustomer> customer = customerRepository.findByNationalityId(nationalityId);
 
         if(customer.isEmpty())
-            throw new BusinessException(CustomerMessages.customerNatIdExist);
+            throw new BusinessException(messageService.getMessage(Messages.BusinessErrors.CUSTOMER_NATID_EXIST));
     }
 
     public void customerNoExist(SearchCustomerRequest request)
     {
         if (customerRepository.search(request).isEmpty()) {
-            throw new BusinessException(CustomerMessages.customerNoExists);
+            throw new BusinessException(messageService.getMessage(Messages.BusinessErrors.CUSTOMER_NOT_EXIST));
         }
     }
 
@@ -38,6 +39,6 @@ public class CustomerBusinessRules {
         Optional<IndividualCustomer> customer = customerRepository.findByNationalityId(nationalityId);
 
         if(customer.isPresent())
-            throw new BusinessException(CustomerMessages.customerExistsWithSameNationalityId);
+            throw new BusinessException(messageService.getMessage(Messages.BusinessErrors.CUSTOMER_EXIST_WITH_SAME_NATID));
     }
 }

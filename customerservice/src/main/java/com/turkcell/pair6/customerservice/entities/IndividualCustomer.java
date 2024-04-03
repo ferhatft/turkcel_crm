@@ -1,20 +1,25 @@
 package com.turkcell.pair6.customerservice.entities;
 
+import com.turkcell.pair6.customerservice.core.entities.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
 @Table(name="individual_customers")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class IndividualCustomer extends Customer {
+
+
+
     @Column(name = "first_name")
     private String firstName;
 
@@ -37,11 +42,7 @@ public class IndividualCustomer extends Customer {
     private String nationalityId;
 
     @Column(name = "birth_date")
-    private Date birthDate;
+    private LocalDate birthDate;
 
-    @PrePersist
-    public void onCreate()
-    {
-        setCustomer_type("individual");
-    }
+
 }
