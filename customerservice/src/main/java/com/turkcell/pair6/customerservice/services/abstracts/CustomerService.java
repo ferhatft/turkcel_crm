@@ -18,7 +18,7 @@ public interface CustomerService {
 
     AddCustomerResponse add(AddDemographicRequest request);
 
-    void delete(int id);
+    void delete(String nationalityId);
 
     AddCustomerResponse update(UpdateCustomerRequest updateCustomerRequest);
 }

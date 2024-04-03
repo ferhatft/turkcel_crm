@@ -9,6 +9,7 @@ import com.turkcell.pair6.customerservice.services.dtos.responses.AddCustomerRes
 import com.turkcell.pair6.customerservice.services.dtos.responses.SearchCustomerResponse;
 import com.turkcell.pair6.customerservice.services.mappers.CustomerMapper;
 import com.turkcell.pair6.customerservice.services.rules.CustomerBusinessRules;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -46,8 +47,10 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void delete(int id) {
-        customerRepository.deleteById(id);
+    @Transactional
+    public void delete(String nationalityId) {
+        customerBusinessRules.hasCustomerProduct(nationalityId);
+        customerRepository.deleteByNationalityId(nationalityId);
     }
 
     @Override

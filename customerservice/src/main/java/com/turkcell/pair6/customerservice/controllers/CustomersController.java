@@ -40,8 +40,8 @@ public class CustomersController {
     }
 
     @DeleteMapping
-    public void delete(int id) {
-        customerService.delete(id);
+    public void delete(String nationalityId) {
+        customerService.delete(nationalityId);
     }
 
     @PutMapping
