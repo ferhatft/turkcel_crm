@@ -5,6 +5,7 @@ import com.turkcell.pair6.customerservice.entities.IndividualCustomer;
 import com.turkcell.pair6.customerservice.services.dtos.requests.SearchCustomerRequest;
 import com.turkcell.pair6.customerservice.services.dtos.responses.SearchCustomerResponse;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -27,4 +28,7 @@ public interface CustomerRepository extends JpaRepository<IndividualCustomer, In
 
     Optional<IndividualCustomer> findByNationalityId(String nationalityId);
 
+    @Modifying
+    @Query("DELETE FROM IndividualCustomer c WHERE c.nationalityId = :nationalityId")
+    void deleteByNationalityId(@Param("nationalityId") String nationalityId);
 }

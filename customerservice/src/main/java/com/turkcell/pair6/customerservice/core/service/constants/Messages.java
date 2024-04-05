@@ -13,6 +13,7 @@ public class Messages {
 
         public static final String CUSTOMER_EXIST_WITH_SAME_NATID= "customer.existWithSameNationalityId";
 
+        public static final String CUSTOMER_HAS_PRODUCT = "customer.hasProduct";
         public static final String CUSTOMER_WITH_THAT_ID_NOT_EXIST="customer.withThatIdNotExist";
 
     }

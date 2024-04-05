@@ -1,5 +1,6 @@
 package com.turkcell.pair6.customerservice.services.rules;
 
+import com.turkcell.pair6.customerservice.clients.OrderServiceClient;
 import com.turkcell.pair6.customerservice.core.exception.types.BusinessException;
 import com.turkcell.pair6.customerservice.core.service.abstracts.MessageService;
 import com.turkcell.pair6.customerservice.core.service.constants.Messages;
@@ -17,6 +18,7 @@ import java.util.Optional;
 public class CustomerBusinessRules {
     private final CustomerRepository customerRepository;
     private final MessageService messageService;
+    private final OrderServiceClient orderServiceClient;
 
 
     public void customerNatIdExist(String nationalityId)
@@ -40,5 +42,10 @@ public class CustomerBusinessRules {
 
         if(customer.isPresent())
             throw new BusinessException(messageService.getMessage(Messages.BusinessErrors.CUSTOMER_EXIST_WITH_SAME_NATID));
+    }
+
+    public void hasCustomerProduct(String nationalityId) {
+        if(orderServiceClient.hasCustomerProduct(nationalityId))
+            throw new BusinessException(messageService.getMessage(Messages.BusinessErrors.CUSTOMER_HAS_PRODUCT));
     }
 }
