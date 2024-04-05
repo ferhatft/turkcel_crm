@@ -6,6 +6,7 @@ import com.turkcell.pair6.customerservice.services.abstracts.ContactService;
 import com.turkcell.pair6.customerservice.services.dtos.requests.AddContactRequest;
 import com.turkcell.pair6.customerservice.services.dtos.responses.ContactResponse;
 import com.turkcell.pair6.customerservice.services.mappers.ContactMapper;
+import com.turkcell.pair6.customerservice.services.rules.ContactBusinessRules;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +22,7 @@ public class ContactServiceImpl implements ContactService {
 
 
     private final ContactRepository contactRepository;
+    private final ContactBusinessRules contactBusinessRules;
 
     @Override
     public List<ContactResponse> getAll(Pageable pageable) {
@@ -40,6 +42,7 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     public void add(AddContactRequest request) {
+        contactBusinessRules.isCustomerIdExist(request.getCustomerId());
         Contact contact = ContactMapper.INSTANCE.contactFromAddRequest(request);
         contactRepository.save(contact);
     }

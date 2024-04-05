@@ -1,4 +1,5 @@
 package com.turkcell.pair6.customerservice.services.concretes;
+import com.turkcell.pair6.customerservice.entities.Customer;
 import com.turkcell.pair6.customerservice.entities.IndividualCustomer;
 import com.turkcell.pair6.customerservice.repositories.CustomerRepository;
 import com.turkcell.pair6.customerservice.services.abstracts.CustomerService;
@@ -63,6 +64,11 @@ public class CustomerServiceImpl implements CustomerService {
         return CustomerMapper.INSTANCE.customerResponseFromCustomer(updatedCustomer);
     }
 
+    @Override
+    public boolean isCustomerIdExist(int id) {
+        Optional<IndividualCustomer> customer = customerRepository.findById(id);
+        return customer.isPresent();
+    }
 
 
 }

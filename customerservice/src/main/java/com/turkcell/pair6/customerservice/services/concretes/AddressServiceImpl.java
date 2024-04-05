@@ -7,12 +7,12 @@ import com.turkcell.pair6.customerservice.services.dtos.requests.AddAddressReque
 import com.turkcell.pair6.customerservice.services.dtos.requests.UpdateAddressRequest;
 import com.turkcell.pair6.customerservice.services.dtos.responses.AddressResponse;
 import com.turkcell.pair6.customerservice.services.mappers.AddressMapper;
+import com.turkcell.pair6.customerservice.services.rules.AddressBusinessRules;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +20,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class AddressServiceImpl implements AddressService {
     private final AddressRepository addressRepository;
+    private final AddressBusinessRules addressBusinessRules;
 
     @Override
     public List<AddressResponse> getAll(Pageable pageable) {
@@ -29,8 +30,8 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public void add(AddAddressRequest request) {
+        addressBusinessRules.isCustomerIdExist(request.getCustomerId());
         Address address = AddressMapper.INSTANCE.addressFromAddRequest(request);
-        address.setCreatedDate(LocalDateTime.now());
         addressRepository.save(address);
     }
 

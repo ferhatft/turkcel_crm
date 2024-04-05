@@ -21,4 +21,6 @@ public interface CustomerService {
     void delete(int id);
 
     AddCustomerResponse update(UpdateCustomerRequest updateCustomerRequest);
+
+    boolean isCustomerIdExist(int id);
 }

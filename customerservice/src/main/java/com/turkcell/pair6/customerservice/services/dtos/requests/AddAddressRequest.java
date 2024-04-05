@@ -2,6 +2,7 @@ package com.turkcell.pair6.customerservice.services.dtos.requests;
 
 import com.turkcell.pair6.customerservice.core.service.constants.Messages;
 import jakarta.persistence.Column;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,4 +27,7 @@ public class AddAddressRequest {
 
     @NotBlank(message = Messages.ValidationErrors.FIELD_NOT_BLANK)
     private String description;
+
+    @Min(1)
+    private int customerId;
 }
