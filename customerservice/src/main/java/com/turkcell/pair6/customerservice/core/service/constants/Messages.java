@@ -16,5 +16,6 @@ public class Messages {
         public static final String CUSTOMER_HAS_PRODUCT = "customer.hasProduct";
         public static final String CUSTOMER_WITH_THAT_ID_NOT_EXIST="customer.withThatIdNotExist";
 
+        public static final String CUSTOMER_HAS_NOT_MORE_THAN_ONE_ADDRESS = "customer.hasNotMoreThanOneAddress";
     }
 }
