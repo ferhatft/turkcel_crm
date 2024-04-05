@@ -4,6 +4,7 @@ import com.turkcell.pair6.customerservice.entities.Contact;
 import com.turkcell.pair6.customerservice.repositories.ContactRepository;
 import com.turkcell.pair6.customerservice.services.abstracts.ContactService;
 import com.turkcell.pair6.customerservice.services.dtos.requests.AddContactRequest;
+import com.turkcell.pair6.customerservice.services.dtos.requests.UpdateContactRequest;
 import com.turkcell.pair6.customerservice.services.dtos.responses.ContactResponse;
 import com.turkcell.pair6.customerservice.services.mappers.ContactMapper;
 import com.turkcell.pair6.customerservice.services.rules.ContactBusinessRules;
@@ -45,5 +46,14 @@ public class ContactServiceImpl implements ContactService {
         contactBusinessRules.isCustomerIdExist(request.getCustomerId());
         Contact contact = ContactMapper.INSTANCE.contactFromAddRequest(request);
         contactRepository.save(contact);
+    }
+
+    @Override
+    public void update(UpdateContactRequest request) {
+        Optional<Contact> optionalContact = contactRepository.findById(request.getId());
+        Contact contact = optionalContact.orElse(null);
+
+        Contact updatedContact = ContactMapper.INSTANCE.contactFromUpdateRequest(request, contact);
+        contactRepository.save(updatedContact);
     }
 }

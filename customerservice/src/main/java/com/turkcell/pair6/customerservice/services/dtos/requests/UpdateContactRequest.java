@@ -1,7 +1,6 @@
 package com.turkcell.pair6.customerservice.services.dtos.requests;
 
 import com.turkcell.pair6.customerservice.core.service.constants.Messages;
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -13,7 +12,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddContactRequest {
+public class UpdateContactRequest {
+    @Min(1)
+    private int id;
+
     @NotBlank(message = Messages.ValidationErrors.FIELD_NOT_BLANK)
     private String email;
 
@@ -23,7 +25,4 @@ public class AddContactRequest {
     private String mobilePhone;
 
     private String fax;
-
-    @Min(1)
-    private int customerId;
 }

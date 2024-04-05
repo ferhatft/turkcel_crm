@@ -15,7 +15,7 @@ public interface AddressMapper {
 
     @Mapping(source="customerId", target="customer.id")
     Address addressFromAddRequest(AddAddressRequest request);
-    Address addressFromUpdateRequest(UpdateAddressRequest request , @MappingTarget Address address) ;
+    Address addressFromUpdateRequest(UpdateAddressRequest request , @MappingTarget Address address);
 
     AddressResponse addressResponseFromAddress(Address address);
 }
