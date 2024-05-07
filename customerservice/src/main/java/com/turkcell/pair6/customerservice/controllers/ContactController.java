@@ -24,11 +24,11 @@ public class ContactController {
     @GetMapping
     public List<ContactResponse> getAll(@RequestParam(defaultValue = "0") int pageNumber,
                                         @RequestParam(defaultValue = "10") int pageSize) {
-        return contactService.getAll(PageRequest.of(pageNumber, pageSize));
+        return contactService.getAllActive(PageRequest.of(pageNumber, pageSize));
     }
 
     @GetMapping("getById")
-    public Optional<Contact> getById(int id){
+    public ContactResponse getById(int id){
         return contactService.getById(id);
     }
 

@@ -1,15 +1,12 @@
 package com.turkcell.pair6.customerservice.entities;
 
-import com.turkcell.pair6.customerservice.core.entities.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
+
 
 @Entity
 @Table(name="individual_customers")

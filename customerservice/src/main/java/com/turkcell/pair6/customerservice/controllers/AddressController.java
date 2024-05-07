@@ -3,6 +3,7 @@ package com.turkcell.pair6.customerservice.controllers;
 import com.turkcell.pair6.customerservice.entities.Address;
 import com.turkcell.pair6.customerservice.services.abstracts.AddressService;
 import com.turkcell.pair6.customerservice.services.dtos.requests.AddAddressRequest;
+import com.turkcell.pair6.customerservice.services.dtos.requests.SetPrimaryAdressRequest;
 import com.turkcell.pair6.customerservice.services.dtos.requests.UpdateAddressRequest;
 import com.turkcell.pair6.customerservice.services.dtos.responses.AddressResponse;
 import jakarta.validation.Valid;
@@ -23,18 +24,18 @@ public class AddressController {
     @GetMapping
     public List<AddressResponse> getAll(@RequestParam(defaultValue = "0") int pageNumber,
                                         @RequestParam(defaultValue = "10") int pageSize) {
-        return addressService.getAll(PageRequest.of(pageNumber, pageSize));
+        return addressService.getAllActive(PageRequest.of(pageNumber, pageSize));
     }
 
     @GetMapping("getById")
-    public Optional<Address> getById(int id){
+    public AddressResponse getById(int id){
         return addressService.getById(id);
     }
 
     @PostMapping
-    public void add(@RequestBody @Valid AddAddressRequest request)
+    public int add(@RequestBody @Valid AddAddressRequest request)
     {
-        addressService.add(request);
+        return addressService.add(request);
     }
 
     @DeleteMapping
@@ -45,5 +46,10 @@ public class AddressController {
     @PutMapping
     public void update(@RequestBody @Valid UpdateAddressRequest updateAddressRequest) {
         addressService.update(updateAddressRequest);
+    }
+
+    @PutMapping("/set-primary")
+    public void makeprimary(@RequestBody @Valid SetPrimaryAdressRequest request) {
+        addressService.setprimary(request);
     }
 }

@@ -12,11 +12,11 @@ import java.util.Optional;
 
 public interface ContactService {
 
-    List<ContactResponse> getAll(Pageable pageable);
+    List<ContactResponse> getAllActive(Pageable pageable);
 
     void delete(int id);
 
-    Optional<Contact> getById(int id);
+    ContactResponse getById(int id);
 
     void add(AddContactRequest request);
 

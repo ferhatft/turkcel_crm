@@ -1,9 +1,9 @@
 package com.turkcell.pair6.customerservice.services.rules;
 
 import com.turkcell.pair6.customerservice.clients.OrderServiceClient;
-import com.turkcell.pair6.customerservice.core.exception.types.BusinessException;
-import com.turkcell.pair6.customerservice.core.service.abstracts.MessageService;
-import com.turkcell.pair6.customerservice.core.service.constants.Messages;
+import com.turkcell.core.exceptions.types.BusinessException;
+import com.turkcell.core.service.abstracts.MessageService;
+import com.turkcell.core.service.constants.Messages;
 import com.turkcell.pair6.customerservice.entities.IndividualCustomer;
 import com.turkcell.pair6.customerservice.repositories.CustomerRepository;
 import com.turkcell.pair6.customerservice.services.dtos.requests.SearchCustomerRequest;
@@ -23,7 +23,7 @@ public class CustomerBusinessRules {
 
     public void customerNatIdExist(String nationalityId)
     {
-        Optional<IndividualCustomer> customer = customerRepository.findByNationalityId(nationalityId);
+        Optional<IndividualCustomer> customer = customerRepository.findActiveCustomerByNationalityId(nationalityId);
 
         if(customer.isEmpty())
             throw new BusinessException(messageService.getMessage(Messages.BusinessErrors.CUSTOMER_NATID_EXIST));
@@ -38,7 +38,7 @@ public class CustomerBusinessRules {
 
     public void customerWithSameNationalityIdCanNotExist(String nationalityId)
     {
-        Optional<IndividualCustomer> customer = customerRepository.findByNationalityId(nationalityId);
+        Optional<IndividualCustomer> customer = customerRepository.findActiveCustomerByNationalityId(nationalityId);
 
         if(customer.isPresent())
             throw new BusinessException(messageService.getMessage(Messages.BusinessErrors.CUSTOMER_EXIST_WITH_SAME_NATID));
@@ -48,4 +48,6 @@ public class CustomerBusinessRules {
         if(orderServiceClient.hasCustomerProduct(nationalityId))
             throw new BusinessException(messageService.getMessage(Messages.BusinessErrors.CUSTOMER_HAS_PRODUCT));
     }
+
+
 }

@@ -1,13 +1,15 @@
 package com.turkcell.pair6.customerservice.services.dtos.requests;
 
 
-import com.turkcell.pair6.customerservice.core.service.constants.Messages;
+import com.turkcell.core.service.constants.Messages;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
+
 import java.time.LocalDate;
 
 @Getter
@@ -34,5 +36,6 @@ public class AddDemographicRequest {
     private String fatherName;
 
     @NotBlank(message = Messages.ValidationErrors.FIELD_NOT_BLANK)
+    @Length(min = 11, max = 11, message=Messages.ValidationErrors.SIZE_INVALID)
     private String nationalityId;
 }

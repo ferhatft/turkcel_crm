@@ -20,4 +20,5 @@ public class AddressResponse {
     private String houseNumber;
 
     private String description;
+
 }

@@ -40,7 +40,7 @@ public class CustomersController {
     }
 
     @DeleteMapping
-    public void delete(String nationalityId) {
+    public void delete(@RequestParam String nationalityId) {
         customerService.delete(nationalityId);
     }
 

@@ -26,31 +26,39 @@ public class ContactServiceImpl implements ContactService {
     private final ContactBusinessRules contactBusinessRules;
 
     @Override
-    public List<ContactResponse> getAll(Pageable pageable) {
-        Page<Contact> contactPage = contactRepository.findAll(pageable);
+    public List<ContactResponse> getAllActive(Pageable pageable) {
+        Page<Contact> contactPage = contactRepository.findAllByIsActiveTrue(pageable);
         return contactPage.map(ContactMapper.INSTANCE::contactResponseFromContact).getContent();
     }
 
     @Override
     public void delete(int id) {
-        contactRepository.deleteById(id);
+        contactBusinessRules.isContactIdExist(id);
+        contactRepository.deactivateByContactId(id);
     }
 
     @Override
-    public Optional<Contact> getById(int id) {
-        return contactRepository.findById(id);
+    public ContactResponse getById(int id) {
+        contactBusinessRules.isContactIdExist(id);
+        Optional<Contact> optionalContact =  contactRepository.findActiveContactById(id);
+        Contact contact = optionalContact.orElse(null);
+
+        return ContactMapper.INSTANCE.contactResponseFromContact(contact);
     }
 
     @Override
     public void add(AddContactRequest request) {
         contactBusinessRules.isCustomerIdExist(request.getCustomerId());
+        contactBusinessRules.hasCustomerAlreadyContact(request.getCustomerId());
         Contact contact = ContactMapper.INSTANCE.contactFromAddRequest(request);
         contactRepository.save(contact);
     }
 
     @Override
     public void update(UpdateContactRequest request) {
-        Optional<Contact> optionalContact = contactRepository.findById(request.getId());
+        contactBusinessRules.isContactIdExist(request.getId());
+
+        Optional<Contact> optionalContact = contactRepository.findActiveContactById(request.getId());
         Contact contact = optionalContact.orElse(null);
 
         Contact updatedContact = ContactMapper.INSTANCE.contactFromUpdateRequest(request, contact);

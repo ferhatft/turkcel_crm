@@ -1,25 +1,21 @@
 package com.turkcell.pair6.orderservice.controllers;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/orders")
+@RequiredArgsConstructor
 public class OrdersController {
 
-    /*
-    @GetMapping
-    public int getCustomerIdByOrderId(@RequestParam String orderId){
-        //TODO: Mongodb'e gidip query ile çek.
-        return 10;
-    }
-    */
+
 
     @GetMapping("/hasProduct")
     boolean hasCustomerProduct(@RequestParam("customerNationalityId") String nationalityId)
     {
         return false;
     }
+
+
 }
